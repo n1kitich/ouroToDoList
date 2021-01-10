@@ -20,8 +20,8 @@ class TableTableViewController: UITableViewController {
     }
 
     @IBAction func pushAction(_ sender: UIBarButtonItem) {
+        addItem(nameItem: "New Item")
         tableView.reloadData()
-        addItem(nameItem: "newItem")
     }
     
     // MARK: - Table view data source
@@ -37,8 +37,16 @@ class TableTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = ToDoList[indexPath.row]
-
+        
+        let currentItem = ToDoList[indexPath.row]
+        cell.textLabel?.text = currentItem["Name"] as? String
+        
+        if currentItem["isComplited"] as? Bool {
+            cell.accessoryType == false
+        } else {
+                cell.accessoryType = .none
+        }
+        
         return cell
     }
 
@@ -48,7 +56,7 @@ class TableTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deleteItem(at: indexPath.row)
+            removeItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
         }    
