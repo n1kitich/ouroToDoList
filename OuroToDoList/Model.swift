@@ -7,16 +7,21 @@
 
 import Foundation
 
-var ToDoList: [[String: Any]] = [["Name": "", "isCompleted": false]]
+var ToDoList: [[String: Any]] = [["Name": "///", "isCompleted": true]]
 
 
-func addItem(nameItem: String, isComplited: Bool = true) {
+func addItem(nameItem: String, isComplited: Bool = false) {
     ToDoList.append(["Name": nameItem, "isCompleted": isComplited])
     saveData()
 }
 
 func removeItem(at index: Int) {
     ToDoList.remove(at: index)
+    saveData()
+}
+
+func changeState(at item: Int) {
+    ToDoList[item]["isCompleted"] = !(ToDoList[item]["isCompleted"] as! Bool)
     saveData()
 }
 

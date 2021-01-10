@@ -41,10 +41,10 @@ class TableTableViewController: UITableViewController {
         let currentItem = ToDoList[indexPath.row]
         cell.textLabel?.text = currentItem["Name"] as? String
         
-        if currentItem["isComplited"] as? Bool {
-            cell.accessoryType == false
+        if (currentItem["isCompleted"] as? Bool) == true {  // replace with a class or struct
+            cell.accessoryType = .checkmark                 // with string and boolean
         } else {
-                cell.accessoryType = .none
+            cell.accessoryType = .none
         }
         
         return cell
@@ -60,6 +60,12 @@ class TableTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
         }    
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)       // снимаем выделение
+        changeState(at: indexPath.row)
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 
     /*
