@@ -20,8 +20,24 @@ class TableTableViewController: UITableViewController {
     }
 
     @IBAction func pushAction(_ sender: UIBarButtonItem) {
-        addItem(nameItem: "New Item")
-        tableView.reloadData()
+        let alertController = UIAlertController(title: "Create new shedule", message: nil, preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+        }
+        
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .default) {
+            (alert) in
+        }
+        
+        let createAlertAction = UIAlertAction(title: "Create", style: .default) {
+            (alert) in
+            let newShedule = alertController.textFields![0].text
+            addItem(nameItem: newShedule!)
+            self.tableView.reloadData()
+        }
+        
+        alertController.addAction(cancelAlertAction)
+        alertController.addAction(createAlertAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
