@@ -15,9 +15,7 @@ var ToDoList: [[String: Any]] {
     get {
         if let list = UserDefaults.standard.array(forKey: "ToDoData") as? [[String: Any]] {
             return list
-        } else {
-            return []
-        }
+        } else {  return [] }
     }
 }
 
@@ -31,4 +29,10 @@ func removeItem(at index: Int) {
 
 func changeState(at item: Int) {
     ToDoList[item]["isCompleted"] = !(ToDoList[item]["isCompleted"] as! Bool)
+}
+
+func moveItem(fromIndex: Int, toIndex: Int) {
+    let from = ToDoList[fromIndex]
+    ToDoList.remove(at: fromIndex)
+    ToDoList.insert(from, at: toIndex)
 }

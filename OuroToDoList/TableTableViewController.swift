@@ -8,7 +8,12 @@
 import UIKit
 
 class TableTableViewController: UITableViewController {
-
+    
+    
+    @IBAction func editButton(_ sender: Any) {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,12 +29,9 @@ class TableTableViewController: UITableViewController {
         alertController.addTextField { (textField) in
         }
         
-        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .default) {
-            (alert) in
-        }
+        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .default) { (alert) in }
         
-        let createAlertAction = UIAlertAction(title: "Create", style: .default) {
-            (alert) in
+        let createAlertAction = UIAlertAction(title: "Create", style: .default) { (alert) in
             let newShedule = alertController.textFields![0].text
             addItem(nameItem: newShedule!)
             self.tableView.reloadData()
@@ -39,8 +41,6 @@ class TableTableViewController: UITableViewController {
         alertController.addAction(createAlertAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -84,12 +84,12 @@ class TableTableViewController: UITableViewController {
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        moveItem(fromIndex: fromIndexPath.row, toIndex: to.row)
+        tableView.reloadData()
     }
-    */
+
 
     /*
     // Override to support conditional rearranging of the table view.

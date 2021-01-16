@@ -40,11 +40,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="zmk-bg-tC1">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0h6-7p-BNy">
-                            <connections>
-                                <action selector="pushAction:" destination="Z3D-72-KTa" id="v4W-41-D5h"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="0h6-7p-BNy">
+                                <connections>
+                                    <action selector="pushAction:" destination="Z3D-72-KTa" id="v4W-41-D5h"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="zuI-gV-Nnc">
+                                <connections>
+                                    <action selector="editButton:" destination="Z3D-72-KTa" id="7zF-Ve-vU7"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0QW-fq-ems" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
