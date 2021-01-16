@@ -50,7 +50,6 @@ class TableTableViewController: UITableViewController {
         return ToDoList.count
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
@@ -58,11 +57,10 @@ class TableTableViewController: UITableViewController {
         cell.textLabel?.text = currentItem["Name"] as? String
         
         if (currentItem["isCompleted"] as? Bool) == true {  // replace with a class or struct
-            cell.accessoryType = .checkmark                 // with string and boolean
+            cell.imageView?.image = UIImage(named: "check")
         } else {
-            cell.accessoryType = .none
+            cell.imageView?.image = UIImage(named: "uncheck")
         }
-        
         return cell
     }
 
@@ -79,7 +77,8 @@ class TableTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)       // снимаем выделение
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         changeState(at: indexPath.row)
         tableView.reloadRows(at: [indexPath], with: .fade)
     }
