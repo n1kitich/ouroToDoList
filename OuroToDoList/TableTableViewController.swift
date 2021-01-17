@@ -9,19 +9,19 @@ import UIKit
 
 class TableTableViewController: UITableViewController {
     
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
-    @IBAction func editButton(_ sender: Any) {
+    @IBAction func editButton(_ sender: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.tableView.reloadData()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.tableFooterView = UIView() // - убирает лишние подчеркивания строк
     }
 
     @IBAction func pushAction(_ sender: UIBarButtonItem) {
@@ -61,6 +61,19 @@ class TableTableViewController: UITableViewController {
         } else {
             cell.imageView?.image = UIImage(named: "uncheck")
         }
+        
+        if tableView.isEditing {
+            //navigationItem.rightBarButtonItem?.title = "Done"
+            editButton.tintColor = .systemGreen
+            cell.textLabel?.alpha = 0.4
+            cell.imageView?.alpha = 0.4
+        } else {
+            //editButton.title = "Edit"
+            editButton.tintColor = .systemBlue
+            cell.textLabel?.alpha = 1
+            cell.imageView?.alpha = 1
+        }
+        
         return cell
     }
 
@@ -70,6 +83,7 @@ class TableTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            //editButton.title = "Done"
             removeItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -87,6 +101,18 @@ class TableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         moveItem(fromIndex: fromIndexPath.row, toIndex: to.row)
         tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView.isEditing {
+            return .none
+        } else {
+            return .delete
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 
 

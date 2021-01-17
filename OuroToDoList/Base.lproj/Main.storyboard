@@ -53,6 +53,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="zuI-gV-Nnc" id="bWQ-iw-gNy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0QW-fq-ems" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
